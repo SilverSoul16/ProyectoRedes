@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     public CharacterController2D controller;
     public Animator animator;
@@ -12,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner) return;
+
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));

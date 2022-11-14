@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 
 public class NetworkManagerUI : MonoBehaviour
 {
-    [SerializeField] private Button serverButton;
+    //[SerializeField] private Button serverButton;
     [SerializeField] private Button hostButton;
     [SerializeField] private Button clientButton;
 
@@ -16,12 +17,13 @@ public class NetworkManagerUI : MonoBehaviour
 
     private void Awake()
     {
-        serverButton.onClick.AddListener(() => {
+        /*serverButton.onClick.AddListener(() => {
             NetworkManager.Singleton.StartServer();
-        });
+        });*/
         hostButton.onClick.AddListener(() => {
             SetHost();
             NetworkManager.Singleton.StartHost();
+            NetworkManager.Singleton.SceneManager.LoadScene("Game", LoadSceneMode.Single);
         });
         clientButton.onClick.AddListener(() => {
             SetConnection();
