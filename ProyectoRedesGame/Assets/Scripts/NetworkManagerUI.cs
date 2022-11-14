@@ -1,3 +1,5 @@
+using System.Net;
+using System.Net.Sockets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +14,6 @@ public class NetworkManagerUI : MonoBehaviour
     [SerializeField] private Button hostButton;
     [SerializeField] private Button clientButton;
 
-    public string hostIpAddress = "127.0.0.1";
     public string clientIpAddress = "127.0.0.1";
 
     private void Awake()
@@ -28,11 +29,8 @@ public class NetworkManagerUI : MonoBehaviour
         clientButton.onClick.AddListener(() => {
             SetConnection();
             NetworkManager.Singleton.StartClient();
+            NetworkManager.Singleton.SceneManager.LoadScene("Game", LoadSceneMode.Single);
         });
-    }
-
-    public void ChangeInputHost(string input) {
-        this.hostIpAddress = input;
     }
 
     public void ChangeInputIpAddress(string input) {
@@ -42,7 +40,7 @@ public class NetworkManagerUI : MonoBehaviour
 
     private void SetHost() {
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(
-            hostIpAddress,  // The IP address is a string
+            GetHostIPAddress(),  // The IP address is a string
             (ushort)7777 // The port number is an unsigned short
         );
     }
@@ -52,5 +50,19 @@ public class NetworkManagerUI : MonoBehaviour
             clientIpAddress,  // The IP address is a string
             (ushort)7777 // The port number is an unsigned short
         );
+    }
+
+    public string GetHostIPAddress()
+    {
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (var ip in host.AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                Debug.Log(ip.ToString());
+                return ip.ToString();
+            }
+        }
+        throw new System.Exception("No network adapters with an IPv4 address in the system!");
     }
 }
