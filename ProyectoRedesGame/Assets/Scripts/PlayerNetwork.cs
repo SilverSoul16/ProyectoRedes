@@ -5,19 +5,27 @@ using Unity.Netcode;
 
 public class PlayerNetwork : NetworkBehaviour
 {   
+    public CharacterController2D controller;
+    public Animator animator;    
+    bool jump = false;
     private float horizontal;
-    private float speed = 8f;
-
-    [SerializeField] private Rigidbody2D rb;
+    private float runSpeed = 40f;
 
     void Update()
     {
         if (!IsOwner) return; //only move the player object that is owned
-        horizontal = Input.GetAxisRaw("Horizontal");
+        horizontal = Input.GetAxisRaw("Horizontal") * runSpeed;
+        
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+
+        if (Input.GetButtonDown("Jump")){
+            jump = true;
+        }
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        controller.Move(horizontal * Time.fixedDeltaTime, false, jump);
+        jump = false;
     }
 }

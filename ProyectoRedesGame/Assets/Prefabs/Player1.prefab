@@ -43,10 +43,11 @@ GameObject:
   - component: {fileID: 7276990541706970600}
   - component: {fileID: 7276990541706970601}
   - component: {fileID: 7276990541706970604}
-  - component: {fileID: 7276990541706970595}
   - component: {fileID: 7276990541706970593}
   - component: {fileID: 7276990541706970594}
   - component: {fileID: -4146046871504158100}
+  - component: {fileID: 3753124064942670590}
+  - component: {fileID: 2320873461287410613}
   m_Layer: 3
   m_Name: Player1
   m_TagString: Player
@@ -171,21 +172,6 @@ MonoBehaviour:
   OnCrouchEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7276990541706970595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7276990541706970602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b76f3f84954ac34b96b12b11ad9c9d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 7276990541706970604}
-  animator: {fileID: 7276990541706970601}
-  runSpeed: 40
 --- !u!61 &7276990541706970593
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -249,6 +235,47 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &3753124064942670590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7276990541706970602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7347bcfbdba40974f9046da4ada504c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 7276990541706970604}
+  animator: {fileID: 7276990541706970601}
+  rb: {fileID: 7276990541706970594}
+--- !u!114 &2320873461287410613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7276990541706970602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  InLocalSpace: 0
+  Interpolate: 1
 --- !u!1 &7276990542903407158
 GameObject:
   m_ObjectHideFlags: 0

@@ -315,7 +315,6 @@ MonoBehaviour:
   serverButton: {fileID: 298222863}
   hostButton: {fileID: 1613223074}
   clientButton: {fileID: 1860995249}
-  hostIpAddress: 127.0.0.1
   clientIpAddress: 127.0.0.1
 --- !u!1 &298222861
 GameObject:
@@ -636,10 +635,10 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 447783446}
-    PlayerPrefab: {fileID: 6337151254774099276, guid: 7286d556f8f4eaf4f87eacf208a0adfc, type: 3}
+    PlayerPrefab: {fileID: 3101283646944824662, guid: 871d8e021091e3d44bcdf63c92a539b1, type: 3}
     NetworkPrefabs:
     - Override: 0
-      Prefab: {fileID: 6337151254774099276, guid: 7286d556f8f4eaf4f87eacf208a0adfc, type: 3}
+      Prefab: {fileID: 3101283646944824662, guid: 871d8e021091e3d44bcdf63c92a539b1, type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
