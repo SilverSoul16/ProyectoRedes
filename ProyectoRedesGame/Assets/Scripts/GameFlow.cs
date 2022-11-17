@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameFlow : MonoBehaviour
 {
     public AudioSource bombSound;
-    private float bombTimer = 15.0f;
+    private float bombTimer = 5.0f;
     private List<GameObject> players;
     private bool gameEnded = false;
     void Start()
