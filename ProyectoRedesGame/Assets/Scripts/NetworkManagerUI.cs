@@ -13,6 +13,7 @@ public class NetworkManagerUI : MonoBehaviour
     [SerializeField] private Button serverButton;
     [SerializeField] private Button hostButton;
     [SerializeField] private Button clientButton;
+    [SerializeField] private Button startButton;
 
     public string clientIpAddress = "127.0.0.1";
 
@@ -24,12 +25,13 @@ public class NetworkManagerUI : MonoBehaviour
         hostButton.onClick.AddListener(() => {
             SetHost();
             NetworkManager.Singleton.StartHost();
-            NetworkManager.Singleton.SceneManager.LoadScene("Game", LoadSceneMode.Single);
+            startButton.onClick.AddListener(() => {
+                NetworkManager.Singleton.SceneManager.LoadScene("Game", LoadSceneMode.Single);
+            });
         });
         clientButton.onClick.AddListener(() => {
             SetConnection();
             NetworkManager.Singleton.StartClient();
-            NetworkManager.Singleton.SceneManager.LoadScene("Game", LoadSceneMode.Single);
         });
     }
 
@@ -51,8 +53,7 @@ public class NetworkManagerUI : MonoBehaviour
         );
     }
 
-    public string GetHostIPAddress()
-    {
+    private string GetHostIPAddress() {
         var host = Dns.GetHostEntry(Dns.GetHostName());
         foreach (var ip in host.AddressList)
         {
