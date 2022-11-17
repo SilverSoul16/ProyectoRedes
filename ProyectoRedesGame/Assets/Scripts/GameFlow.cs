@@ -6,22 +6,30 @@ using Unity.Netcode;
 public class GameFlow : NetworkBehaviour
 {
     public AudioSource bombSound;
-    private float bombTimer = 20.0f;
+    private const float bombTimer = 20.0f;
     private List<GameObject> players;
     private bool gameEnded = false;
+    private float currentTime;
+
     void Start()
     {
         players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
-        RandomBombGrab();
+
+        if (IsServer)
+        {
+            RandomBombGrab();
+            ResetTimer();
+        }
     }
 
     void Update()
     {
-        if (gameEnded) return;
-        bombTimer -= Time.deltaTime;
-        if (bombTimer <= 0)
+        if (gameEnded || !IsServer) return;
+
+        currentTime -= Time.deltaTime;
+        if (currentTime <= 0)
         {
-            ExplodeBomb();
+            ExplodeBombClientRpc();
             if (players.Count == 1)
             {
                 Debug.Log("Player " + players[0].name + " wins!");
@@ -30,28 +38,35 @@ public class GameFlow : NetworkBehaviour
             else
             {
                 RandomBombGrab();
-                bombTimer = 20.0f;
+                ResetTimer();
             }
         }
     }
 
-    private void ExplodeBomb()
+    [ClientRpc]
+    private void ExplodeBombClientRpc()
     {
         foreach (GameObject player in players)
         {
             if (player.GetComponent<GrabBomb>().HasBomb())
             {
-                bombSound.Play();
                 players.Remove(player);
+                bombSound.Play();
+                //Agregar animación de explosión
                 Destroy(player);
                 break;
             }
         }
     }
 
+
     private void RandomBombGrab()
     {
-        Debug.Log(players.Count);
-        players[Random.Range(0, players.Count)].GetComponent<GrabBomb>().Grab();
+        players[Random.Range(0, players.Count)].GetComponent<GrabBomb>().GrabClientRpc();
+    }
+
+    private void ResetTimer()
+    {
+        currentTime = bombTimer;
     }
 }

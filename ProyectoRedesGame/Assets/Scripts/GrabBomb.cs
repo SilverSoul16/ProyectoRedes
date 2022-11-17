@@ -20,14 +20,14 @@ public class GrabBomb : NetworkBehaviour
         }
     }
 
-    public void Grab()
+    [ClientRpc]
+    public void GrabClientRpc()
     {
         hasBomb = true;
         itemHolding = Instantiate(bomb, holdSpot.position, Quaternion.identity);
         itemHolding.transform.position = holdSpot.position;
         itemHolding.transform.parent = transform;
         itemHolding.GetComponent<Rigidbody2D>().simulated = false;
-        hasBomb = true;
     }
 
     private IEnumerator PassBomb(GameObject otherPlayer)
@@ -35,7 +35,7 @@ public class GrabBomb : NetworkBehaviour
         grabbing = false;
         Destroy(itemHolding);
         hasBomb = false;
-        otherPlayer.GetComponent<GrabBomb>().Grab();
+        otherPlayer.GetComponent<GrabBomb>().GrabClientRpc();
         yield return new WaitForSeconds(2f);
         grabbing = true;
     }
