@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 7901050847641769101}
-  animator: {fileID: 0}
+  animator: {fileID: 7901050847641769095}
 --- !u!114 &5079989917476553632
 MonoBehaviour:
   m_ObjectHideFlags: 0
