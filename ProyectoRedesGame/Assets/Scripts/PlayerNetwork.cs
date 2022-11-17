@@ -13,13 +13,14 @@ public class PlayerNetwork : NetworkBehaviour
 
     void Update()
     {
-        //if (!IsOwner) return; //only move the player object that is owned
-        horizontal = Input.GetAxisRaw("Horizontal") * runSpeed;
-        
-        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        if (!IsOwner) { //only move the player object that is owned
+            horizontal = Input.GetAxisRaw("Horizontal") * runSpeed;
+            
+            animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
-        if (Input.GetButtonDown("Jump")){
-            jump = true;
+            if (Input.GetButtonDown("Jump")){
+                jump = true;
+            }
         }
     }
 
