@@ -4,18 +4,43 @@ using UnityEngine;
 
 public class GrabBomb : MonoBehaviour
 {    
-    public Transform holdSpot;    
-    public GameObject item;
-    
+    public Transform holdSpot;
+    public GameObject bomb;
+    private bool hasBomb;
     private GameObject itemHolding;
+    private bool grabbing = true;
 
-    void Start() {
-        itemHolding = Instantiate(item, holdSpot.position, Quaternion.identity);
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        GameObject other = collision.gameObject;
+        if (other.tag == "Player" && hasBomb && other.GetComponent<GrabBomb>().grabbing) // Player layer
+        {
+            StartCoroutine(PassBomb(other));
+        }
+    }
+
+    public void Grab()
+    {
+        hasBomb = true;
+        itemHolding = Instantiate(bomb, holdSpot.position, Quaternion.identity);
         itemHolding.transform.position = holdSpot.position;
         itemHolding.transform.parent = transform;
-        Debug.Log(itemHolding.transform.parent);
-        Debug.Log(transform);
-        if(itemHolding.GetComponent<Rigidbody2D>())
-            itemHolding.GetComponent<Rigidbody2D>().simulated = false;
+        itemHolding.GetComponent<Rigidbody2D>().simulated = false;
+        hasBomb = true;
+    }
+
+    private IEnumerator PassBomb(GameObject otherPlayer)
+    {
+        grabbing = false;
+        Destroy(itemHolding);
+        hasBomb = false;
+        otherPlayer.GetComponent<GrabBomb>().Grab();
+        yield return new WaitForSeconds(2f);
+        grabbing = true;
+    }
+
+    public bool HasBomb()
+    {
+        return hasBomb;
     }
 }
