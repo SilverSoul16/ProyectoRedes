@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class GrabBomb : MonoBehaviour
+public class GrabBomb : NetworkBehaviour
 {    
     public Transform holdSpot;
     public GameObject bomb;
