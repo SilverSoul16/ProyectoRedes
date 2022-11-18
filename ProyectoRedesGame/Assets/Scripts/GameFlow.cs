@@ -6,7 +6,7 @@ using Unity.Netcode;
 public class GameFlow : NetworkBehaviour
 {
     public AudioSource bombSound;
-    private const float bombTimer = 10.0f;
+    private const float bombTimer = 15.0f;
     private List<GameObject> players;
     private bool gameEnded = false;
     private NetworkVariable<float> currentTime = new NetworkVariable<float>(bombTimer);
