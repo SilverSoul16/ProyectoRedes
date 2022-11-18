@@ -7,76 +7,41 @@ public class GrabBomb : NetworkBehaviour
 {    
     public Transform holdSpot;
     public GameObject bomb;
+    private bool hasBomb;
     private GameObject itemHolding;
-    private NetworkVariable<bool> hasBomb = new NetworkVariable<bool>(false);
-    private NetworkVariable<bool> grabbing = new NetworkVariable<bool>(true);
+    private bool grabbing = true;
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (IsHost && collision.gameObject.tag == "Player")
+        GameObject other = collision.gameObject;
+        if (other.tag == "Player" && hasBomb && other.GetComponent<GrabBomb>().grabbing) // Player layer
         {
-            GrabBomb other = collision.gameObject.GetComponent<GrabBomb>();
-            if (hasBomb.Value && other.grabbing.Value)
-            {
-                DropBomb();
-                other.TakeBomb();
-                StartCoroutine(DelayGrab());
-            }
-        }
-    }
-
-    public void TakeBomb()
-    {
-        if (IsHost)
-        {
-            hasBomb.Value = true;
-            TakeBombClientRpc();
+            StartCoroutine(PassBomb(other));
         }
     }
 
     [ClientRpc]
-    private void TakeBombClientRpc()
+    public void GrabClientRpc()
     {
+        hasBomb = true;
         itemHolding = Instantiate(bomb, holdSpot.position, Quaternion.identity);
         itemHolding.transform.position = holdSpot.position;
         itemHolding.transform.parent = transform;
         itemHolding.GetComponent<Rigidbody2D>().simulated = false;
     }
 
-    public void DropBomb()
+    private IEnumerator PassBomb(GameObject otherPlayer)
     {
-        if (IsHost)
-        {
-            hasBomb.Value = false;
-            DropBombClientRpc();
-        }
-    }
-
-    [ClientRpc]
-    private void DropBombClientRpc()
-    {
+        grabbing = false;
         Destroy(itemHolding);
-    }
-
-    private IEnumerator DelayGrab()
-    {
-        if (IsHost)
-        {
-            grabbing.Value = false;
-            yield return new WaitForSeconds(1);
-            grabbing.Value = true;
-        }
-    }
-
-    [ClientRpc]
-    public void ExplodeClientRpc()
-    {
-        //Explosion aqui
-        Destroy(gameObject);
+        hasBomb = false;
+        otherPlayer.GetComponent<GrabBomb>().GrabClientRpc();
+        yield return new WaitForSeconds(2f);
+        grabbing = true;
     }
 
     public bool HasBomb()
     {
-        return hasBomb.Value;
+        return hasBomb;
     }
 }

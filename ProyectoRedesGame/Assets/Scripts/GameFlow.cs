@@ -6,29 +6,30 @@ using Unity.Netcode;
 public class GameFlow : NetworkBehaviour
 {
     public AudioSource bombSound;
-    private const float bombTimer = 10.0f;
+    private const float bombTimer = 20.0f;
     private List<GameObject> players;
     private bool gameEnded = false;
-    private NetworkVariable<float> currentTime = new NetworkVariable<float>(bombTimer);
+    private float currentTime;
 
     void Start()
     {
-        if (IsHost)
+        players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
+
+        if (IsServer)
         {
-            players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
             RandomBombGrab();
-            RestartTimer();
+            ResetTimer();
         }
     }
 
     void Update()
     {
-        if (gameEnded || !IsHost) return;
+        if (gameEnded || !IsServer) return;
 
-        currentTime.Value -= Time.deltaTime;
-        if (currentTime.Value <= 0)
+        currentTime -= Time.deltaTime;
+        if (currentTime <= 0)
         {
-            ExplodeBomb();
+            ExplodeBombClientRpc();
             if (players.Count == 1)
             {
                 Debug.Log("Player " + players[0].name + " wins!");
@@ -37,38 +38,35 @@ public class GameFlow : NetworkBehaviour
             else
             {
                 RandomBombGrab();
-                RestartTimer();
-            }
-        }
-    }
-
-    private void ExplodeBomb()
-    {
-        foreach (GameObject player in players)
-        {
-            if (player.GetComponent<GrabBomb>().HasBomb())
-            {
-                PlayExplosionSoundClientRpc();
-                players.Remove(player);
-                player.GetComponent<GrabBomb>().ExplodeClientRpc();
-                break;
+                ResetTimer();
             }
         }
     }
 
     [ClientRpc]
-    private void PlayExplosionSoundClientRpc()
+    private void ExplodeBombClientRpc()
     {
-        bombSound.Play();
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<GrabBomb>().HasBomb())
+            {
+                players.Remove(player);
+                bombSound.Play();
+                //Agregar animación de explosión
+                Destroy(player);
+                break;
+            }
+        }
     }
+
 
     private void RandomBombGrab()
     {
-        players[Random.Range(0, players.Count)].GetComponent<GrabBomb>().TakeBomb();
+        players[Random.Range(0, players.Count)].GetComponent<GrabBomb>().GrabClientRpc();
     }
 
-    private void RestartTimer()
+    private void ResetTimer()
     {
-        currentTime.Value = bombTimer;
+        currentTime = bombTimer;
     }
 }
