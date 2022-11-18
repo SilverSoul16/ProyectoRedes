@@ -12,7 +12,7 @@ public class ChatPlayer : NetworkBehaviour
     {
         if (IsLocalPlayer){
             base.OnNetworkSpawn();
-            AddChatClientRpc("Player " + OwnerClientId + " joined the chat");
+            AddChatServerRpc("Player " + OwnerClientId + " joined the chat");
             inputField = ChatManager.instance.inputField;
             inputField.onSubmit.AddListener(SendMessageFromUI);
         }
@@ -22,7 +22,7 @@ public class ChatPlayer : NetworkBehaviour
     {
         if (IsLocalPlayer){
             base.OnNetworkDespawn();
-            AddChatClientRpc("Player " + OwnerClientId + " left the chat");
+            AddChatServerRpc("Player " + OwnerClientId + " left the chat");
         }
     }
 
@@ -30,18 +30,18 @@ public class ChatPlayer : NetworkBehaviour
     {
         Debug.Log(msg);
         inputField.text = "";
-        AddChatClientRpc(msg);
+        AddChatServerRpc(msg);
         //inputField.Select();
     }
 
     /*[ServerRpc(RequireOwnership = false)]
-    void AddChatClientRpc(string v)
+    void AddChatServerRpc(string v)
     {
-        AddChatClientRpc(v);
+        AddChatServerRpc(v);
     }*/
 
-    [ClientRpc]
-    void AddChatClientRpc(string v)
+    [ServerRpc]
+    void AddChatServerRpc(string v)
     {
         ChatManager.instance.AddChat(v, OwnerClientId);
     }
