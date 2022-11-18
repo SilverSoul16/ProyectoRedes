@@ -5,6 +5,7 @@ using Unity.Netcode;
 
 public class GrabBomb : NetworkBehaviour
 {    
+    public Sprite explosionSprite;
     public Transform holdSpot;
     public GameObject bomb;
     private GameObject itemHolding;
@@ -71,8 +72,11 @@ public class GrabBomb : NetworkBehaviour
     [ClientRpc]
     public void ExplodeClientRpc()
     {
-        //Explosion aqui
-        Destroy(gameObject);
+        float scale = 0.5f;
+        transform.localScale = new Vector3(scale, scale, scale);
+        gameObject.GetComponent<Animator>().enabled = false;
+        gameObject.GetComponent<SpriteRenderer>().sprite = explosionSprite;
+        Destroy(gameObject, 1);
     }
 
     public bool HasBomb()
