@@ -82,6 +82,7 @@ GameObject:
   - component: {fileID: 1019772366}
   - component: {fileID: -3684306555339710919}
   - component: {fileID: -3896430426552882979}
+  - component: {fileID: -3626258960791195283}
   m_Layer: 3
   m_Name: Player1
   m_TagString: Player
@@ -322,7 +323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a492c7a7772a27240af52febcac51a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombSound: {fileID: -3896430426552882979}
   holdSpot: {fileID: 7935456281923634775}
   bomb: {fileID: 4668658644651391877, guid: c0e786cb56bb9a148b358e7d417259a6, type: 3}
 --- !u!114 &-3684306555339710919
@@ -435,6 +435,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-3626258960791195283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7276990541706970602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e447b467cd50ac4e86540e99a8cc76b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputField: {fileID: 0}
 --- !u!1 &7276990542903407158
 GameObject:
   m_ObjectHideFlags: 0
