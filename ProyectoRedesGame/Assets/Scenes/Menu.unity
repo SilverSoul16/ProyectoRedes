@@ -624,7 +624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &451203926
 RectTransform:
   m_ObjectHideFlags: 0
@@ -639,7 +639,7 @@ RectTransform:
   m_Children:
   - {fileID: 1075452455}
   - {fileID: 1236162567}
-  m_Father: {fileID: 1695142694}
+  m_Father: {fileID: 952232204}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1965,6 +1965,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 451203926}
   - {fileID: 1833429528}
   - {fileID: 1823960575}
   - {fileID: 1695142694}
@@ -6349,6 +6350,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 451203925}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1686633407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6416,7 +6429,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 561365949}
-  - {fileID: 451203926}
   m_Father: {fileID: 952232204}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6589,6 +6601,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1777202509}
   - component: {fileID: 1777202510}
+  - component: {fileID: 1777202511}
   m_Layer: 0
   m_Name: '#Script'
   m_TagString: Untagged
@@ -6625,6 +6638,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chatText: {fileID: 666100949}
   inputField: {fileID: 376319628}
+--- !u!114 &1777202511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777202508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 565629364
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1823960574
 GameObject:
   m_ObjectHideFlags: 0
@@ -6831,7 +6860,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1885847338}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 451203925}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1885847338
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using Unity.Netcode;
 
-public class ChatManager : MonoBehaviour
+public class ChatManager : NetworkBehaviour
 {
     public Text chatText;
     Stack<string> chat = new Stack<string>();
@@ -18,7 +18,6 @@ public class ChatManager : MonoBehaviour
         
     }
     
-    //[ServerRpc]
     public void AddChat(string v, ulong id)
     {
         chat.Push(id + "> " + v);
