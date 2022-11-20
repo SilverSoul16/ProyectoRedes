@@ -207,7 +207,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1695142693}
+      - m_Target: {fileID: 1823960574}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -6772,7 +6772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4b2615957f06844bf54fc03d0aa1a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverButton: {fileID: 228926983}
   hostButton: {fileID: 1686633406}
   clientButton: {fileID: 1885847337}
   startButton: {fileID: 561365950}
