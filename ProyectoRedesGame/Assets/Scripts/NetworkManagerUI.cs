@@ -10,6 +10,7 @@ using Unity.Netcode.Transports.UTP;
 
 public class NetworkManagerUI : NetworkBehaviour
 {
+    [SerializeField] private Button serverButton;
     [SerializeField] private Button hostButton;
     [SerializeField] private Button clientButton;
     [SerializeField] private Button startButton;
@@ -18,6 +19,9 @@ public class NetworkManagerUI : NetworkBehaviour
 
     private void Awake()
     {
+        serverButton.onClick.AddListener(() => {
+            NetworkManager.Singleton.StartServer();
+        });
         hostButton.onClick.AddListener(() => {
             SetHost();
             NetworkManager.Singleton.StartHost();
