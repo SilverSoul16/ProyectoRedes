@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-using UnityEngine.SceneManagement;
 
 public class GameFlow : NetworkBehaviour
 {
@@ -24,10 +23,7 @@ public class GameFlow : NetworkBehaviour
 
     void Update()
     {
-        if (gameEnded || !IsHost) {
-            SceneManager.LoadScene("Menu");
-            return;
-        }
+        if (gameEnded || !IsHost) return;
 
         currentTime.Value -= Time.deltaTime;
         if (currentTime.Value <= 0)
